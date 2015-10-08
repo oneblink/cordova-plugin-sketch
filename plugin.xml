@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+           id="cordova-plugin-sketch"
+      version="0.1.0">
+
+    <name>Sketch</name>
+    <description>Cordova Sketch Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,sketch,signature,draw</keywords>
+
+    <js-module src="www/sketch.js" name="sketch">
+        <clobbers target="navigator.sketch" />
+    </js-module>
+
+    <!-- windows -->
+    <platform name="windows">
+        <js-module src="src/windows/sketchProxy.js" name="SketchProxy">
+            <merges target="" />
+        </js-module>
+        <asset src="www/css/cordova-plugin-sketch.css" target="cordova-plugin-sketch/css/cordova-plugin-sketch.css" />
+        <asset src="www/css/program.css" target="cordova-plugin-sketch/css/program.css" />
+        <asset src="www/images/Erase.cur" target="cordova-plugin-sketch/images/Erase.cur" />
+        <asset src="www/images/Select.png" target="cordova-plugin-sketch/images/Select.png" />
+        <asset src="www/canvasHtml.js" target="cordova-plugin-sketch/canvasHtml.js" />
+        <asset src="www/program.js" target="cordova-plugin-sketch/program.js" />    </platform>
+
+    </plugin>

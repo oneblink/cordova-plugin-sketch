@@ -1,0 +1,26 @@
+{
+  "name": "cordova-plugin-sketch",
+  "version": "1.0.1",
+  "description": "Cordova Sketch Plugin",
+  "cordova": {
+    "id": "cordova-plugin-sketch",
+    "platforms": [
+      "windows"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "sketch",
+    "drawing",
+    "signature",
+    "ecosystem:cordova",
+    "cordova-windows",
+  ],
+  "devDependencies": {
+    "eslint": "^1.1",
+    "eslint-config-semistandard": "^5.0",
+    "eslint-config-standard": "^4.0"
+  },
+  "author": "BlinkMobile Interactive",
+  "license": "Apache 2.0"
+}
