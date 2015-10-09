@@ -38,11 +38,11 @@
 
 .cordova-plugin-sketch-nativePopUp__button,
 .cordova-plugin-sketch-nativePopUp__content {
-  margin: 5px;
+  margin: 0px;
 }
 
 .cordova-plugin-sketch-nativePopUp__content {
-  background: #00a;
+  background: #000;
   flex-grow: 1;
   flex-shrink: 1;
 }
