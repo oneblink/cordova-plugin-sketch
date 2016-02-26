@@ -22,6 +22,11 @@
         <asset src="www/images/Erase.cur" target="cordova-plugin-sketch/images/Erase.cur" />
         <asset src="www/images/Select.png" target="cordova-plugin-sketch/images/Select.png" />
         <asset src="www/canvasHtml.js" target="cordova-plugin-sketch/canvasHtml.js" />
-        <asset src="www/program.js" target="cordova-plugin-sketch/program.js" />    </platform>
+        <asset src="www/program.js" target="cordova-plugin-sketch/program.js" />    
+        <config-file target="package.appxmanifest" parent="/Package/Capabilities" versions="8.1.0">
+            <Capability Name="picturesLibrary" />
+        </config-file>
+
+    </platform>
 
     </plugin>
