@@ -86,7 +86,8 @@ exports.defineAutoTests = function () {
           done();
         }
         navigator.sketch.getSketch(callBack, successCallback, {
-          destinationType: navigator.sketch.DestinationType.FILE_URI, encodingType: navigator.sketch.EncodingType.JPEG
+          destinationType: navigator.sketch.DestinationType.FILE_URI,
+          encodingType: navigator.sketch.EncodingType.JPEG
         });
         // setTimeout(function() {
         //   expect(successCallback).toHaveBeenCalled();
@@ -99,12 +100,14 @@ exports.defineAutoTests = function () {
       it('should be called with a PNG file URI when destinationType is FILE_URI, encoding type is PNG', function (done) {
         var filetype = '.PNG';
         navigator.sketch.getSketch(successCallback, successCallback, {
-          destinationType: navigator.sketch.DestinationType.FILE_URI, encodingType: navigator.sketch.EncodingType.PNG
+          destinationType: navigator.sketch.DestinationType.FILE_URI,
+          encodingType: navigator.sketch.EncodingType.PNG
         });
         setTimeout(function() {
           expect(successCallback).toHaveBeenCalled();
-          if(successCallback.calls != null && successCallback.calls.mostRecent() != undefined)
+          if (successCallback.calls != null && successCallback.calls.mostRecent() != undefined) {
             expect(successCallback.calls.mostRecent().args[0].indexOf(filetype)).toBeGreaterThan(0);
+          }
           done();
         }, 19000);
       });
@@ -112,23 +115,26 @@ exports.defineAutoTests = function () {
 
       it('should be called with a JPEG encoded data stream when destinationType is DATA_URL, encoding type is JPEG', function (done) {
         navigator.sketch.getSketch(successCallback, successCallback, {
-          destinationType: navigator.sketch.DestinationType.DATA_URL, encodingType: navigator.sketch.EncodingType.JPEG
+          destinationType: navigator.sketch.DestinationType.DATA_URL,
+          encodingType: navigator.sketch.EncodingType.JPEG
         });
         setTimeout(function() {
           expect(successCallback).toHaveBeenCalled();
-          if(successCallback.calls != null && successCallback.calls.mostRecent() != undefined)
+          if (successCallback.calls != null && successCallback.calls.mostRecent() != undefined) {
             expect(successCallback.calls.mostRecent().args[0].indexOf('data:image/jpeg')).toBe(0);
+          }
           done();
         }, 19000);
       });
 
       it('should be called with a PNG encoded data stream when destinationType is DATA_URL, encoding type is PNG', function (done) {
         navigator.sketch.getSketch(successCallback, successCallback, {
-          destinationType: navigator.sketch.DestinationType.DATA_URL, encodingType: navigator.sketch.EncodingType.PNG
+          destinationType: navigator.sketch.DestinationType.DATA_URL,
+          encodingType: navigator.sketch.EncodingType.PNG
         });
         setTimeout(function() {
           expect(successCallback).toHaveBeenCalled();
-          if(successCallback.calls != null && successCallback.calls.mostRecent() != undefined){
+          if (successCallback.calls != null && successCallback.calls.mostRecent() != undefined) {
             expect(successCallback.calls.mostRecent().args[0].indexOf('data:image/png')).toBe(0);
             inputData = successCallback.calls.mostRecent().args[0];
           }
@@ -138,11 +144,14 @@ exports.defineAutoTests = function () {
 
       it('should be called with a PNG encoded data stream when destinationType is DATA_URL, encoding type is PNG, inputType is DATA_URL', function (done) {
         navigator.sketch.getSketch(successCallback, successCallback, {
-          destinationType: navigator.sketch.DestinationType.DATA_URL, encodingType: navigator.sketch.EncodingType.PNG, inputType : navigator.sketch.InputType.DATA_URL, inputData : inputData
+          destinationType: navigator.sketch.DestinationType.DATA_URL,
+          encodingType: navigator.sketch.EncodingType.PNG,
+          inputType : navigator.sketch.InputType.DATA_URL,
+          inputData : inputData
         });
         setTimeout(function() {
           expect(successCallback).toHaveBeenCalled();
-          if(successCallback.calls != null && successCallback.calls.mostRecent() != undefined){
+          if (successCallback.calls != null && successCallback.calls.mostRecent() != undefined) {
             expect(successCallback.calls.mostRecent().args[0].indexOf('data:image/png')).toBe(0);
           }
           inputData = null;
