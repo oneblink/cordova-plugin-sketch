@@ -29,4 +29,21 @@
         </config-file>
     </platform>
 
+    <!-- iOS -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="SketchPlugin">
+                <param name="ios-package" value="BGSketchPlugin"/>
+            </feature>
+        </config-file>
+        <header-file src="src/ios/BGSketchPlugin.h" />
+        <source-file src="src/ios/BGSketchPlugin.m" />
+        <header-file src="src/ios/TouchDraw/BGTouchDrawView.h" />
+        <source-file src="src/ios/TouchDraw/BGTouchDrawView.m" />
+        <header-file src="src/ios/TouchDraw/BGTouchDrawViewController.h" />
+        <source-file src="src/ios/TouchDraw/BGTouchDrawViewController.m" />
+        <header-file src="src/ios/TouchDraw/UIImage+ImageWithColor.h" />
+        <source-file src="src/ios/TouchDraw/UIImage+ImageWithColor.m" />
+    </platform>
+
 </plugin>
