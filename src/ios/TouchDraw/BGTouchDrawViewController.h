@@ -63,8 +63,6 @@
 
 @property(nonatomic, strong) UIButton *blackButton;
 
-@property(nonatomic, strong) UIButton *whiteButton;
-
 @property(nonatomic, strong) UIColor *colour;
 
 @property(nonatomic, strong) UIBarButtonItem *btColour;

@@ -210,13 +210,11 @@
         self.blueButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         self.greenButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         self.blackButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        self.whiteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 
         self.redButton.alpha = 0.0;
         self.greenButton.alpha = 0.0;
         self.blueButton.alpha = 0.0;
         self.blackButton.alpha = 0.0;
-        self.whiteButton.alpha = 0.0;
 
         self.redButton.frame = CGRectMake(buttonsAnimationStartFrame.origin.x,
                                           buttonsAnimationStartFrame.origin.y, 50.0, 50.0);
@@ -226,10 +224,10 @@
                                             buttonsAnimationStartFrame.origin.y, 50.0, 50.0);
         self.blackButton.frame = CGRectMake(buttonsAnimationStartFrame.origin.x,
                                             buttonsAnimationStartFrame.origin.y, 50.0, 50.0);
-        self.whiteButton.frame = CGRectMake(buttonsAnimationStartFrame.origin.x,
-                                            buttonsAnimationStartFrame.origin.y, 50.0, 50.0);
 
         self.redButton.backgroundColor = [UIColor redColor];
+        [self.redButton setTitleColor:[UIColor whiteColor]
+                               forState:UIControlStateNormal];
         [self.redButton addTarget:self
                            action:@selector(colourChanged:)
                  forControlEvents:UIControlEventTouchDown];
@@ -241,6 +239,8 @@
         [self.view addSubview:self.redButton];
 
         self.blueButton.backgroundColor = [UIColor blueColor];
+        [self.blueButton setTitleColor:[UIColor whiteColor]
+                             forState:UIControlStateNormal];
         [self.blueButton addTarget:self
                             action:@selector(colourChanged:)
                   forControlEvents:UIControlEventTouchDown];
@@ -249,10 +249,11 @@
         [self.blueButton.layer setCornerRadius:25.0f];
 
         [self.blueButton setTitle:@"Blue" forState:UIControlStateNormal];
-
         [self.view addSubview:self.blueButton];
 
         self.greenButton.backgroundColor = [UIColor greenColor];
+        [self.greenButton setTitleColor:[UIColor whiteColor]
+                             forState:UIControlStateNormal];
         [self.greenButton addTarget:self
                              action:@selector(colourChanged:)
                    forControlEvents:UIControlEventTouchDown];
@@ -276,33 +277,19 @@
         [self.blackButton setTitle:@"Black" forState:UIControlStateNormal];
         [self.view addSubview:self.blackButton];
 
-        self.whiteButton.backgroundColor = [UIColor whiteColor];
-        [self.whiteButton setTitleColor:[UIColor blackColor]
-                               forState:UIControlStateNormal];
-        [self.whiteButton addTarget:self
-                             action:@selector(colourChanged:)
-                   forControlEvents:UIControlEventTouchDown];
-
-        [self.whiteButton.layer setMasksToBounds:YES];
-        [self.whiteButton.layer setCornerRadius:25.0f];
-
-        [self.whiteButton setTitle:@"White" forState:UIControlStateNormal];
-        [self.view addSubview:self.whiteButton];
-
         coloursShown = YES;
 
+        float toolBarOriginY = self.navigationController.toolbar.frame.origin.y;
         [UIView animateWithDuration:0.3 animations:^{
-            self.redButton.frame = CGRectMake(10.0, 10.0, 50.0, 50.0);
-            self.blueButton.frame = CGRectMake(10.0, 70.0, 50.0, 50.0);
-            self.greenButton.frame = CGRectMake(10.0, 130.0, 50.0, 50.0);
-            self.blackButton.frame = CGRectMake(10.0, 190.0, 50.0, 50.0);
-            self.whiteButton.frame = CGRectMake(10.0, 250.0, 50.0, 50.0);
+            self.redButton.frame = CGRectMake(10.0, toolBarOriginY - 4*(50.0 + 10.0), 50.0, 50.0);
+            self.blueButton.frame = CGRectMake(10.0, toolBarOriginY - 3*(50.0 + 10.0), 50.0, 50.0);
+            self.greenButton.frame = CGRectMake(10.0, toolBarOriginY - 2*(50.0 + 10.0), 50.0, 50.0);
+            self.blackButton.frame = CGRectMake(10.0, toolBarOriginY - (50.0 + 10.0), 50.0, 50.0);
 
             self.redButton.alpha = 1.0;
             self.greenButton.alpha = 1.0;
             self.blueButton.alpha = 1.0;
             self.blackButton.alpha = 1.0;
-            self.whiteButton.alpha = 1.0;
         }];
 
     }
@@ -338,19 +325,15 @@
                                                 buttonsAnimationStartFrame.origin.y, 50.0, 40.0);
             self.blackButton.frame = CGRectMake(buttonsAnimationStartFrame.origin.x,
                                                 buttonsAnimationStartFrame.origin.y, 50.0, 40.0);
-            self.whiteButton.frame = CGRectMake(buttonsAnimationStartFrame.origin.x,
-                                                buttonsAnimationStartFrame.origin.y, 50.0, 40.0);
 
             self.redButton.alpha = 0.0;
             self.greenButton.alpha = 0.0;
             self.blueButton.alpha = 0.0;
             self.blackButton.alpha = 0.0;
-            self.whiteButton.alpha = 0.0;
         } completion:^(BOOL finished) {
             [self.redButton removeFromSuperview];
             [self.blueButton removeFromSuperview];
             [self.greenButton removeFromSuperview];
-            [self.whiteButton removeFromSuperview];
             [self.blackButton removeFromSuperview];
         }];
 
