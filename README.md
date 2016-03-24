@@ -5,7 +5,7 @@ This plugin defines a navigator.Sketch object, which supplies an interface to la
 ## Installation
 
 ```sh
-cordova plugin add cordova-plugin-sketch
+cordova plugin add https://github.com/blinkmobile/cordova-plugin-sketch.git
 ```
 
 ## Sketch.getSketch
@@ -40,6 +40,7 @@ If the user presses "cancel", the result is `null`.
 ## Supported Platforms
 
 Windows 8.1 +
+iOS 8.0 +
 
 ## Example
 
