@@ -39,8 +39,9 @@ If the user presses "cancel", the result is `null`.
 
 ## Supported Platforms
 
-Windows 8.1 +
-iOS 8.0 +
+- Android 4.0 +
+- iOS 8.0 +
+- Windows 8.1 +
 
 ## Example
 

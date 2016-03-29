@@ -46,4 +46,24 @@
         <source-file src="src/ios/TouchDraw/UIImage+ImageWithColor.m" />
     </platform>
 
+    <!-- android -->
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <feature name="SketchPlugin">
+                <param name="android-package"
+                    value="au.com.blinkmobile.cordova.sketch.Sketch"/>
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity
+                android:name="au.com.blinkmobile.cordova.sketch.TouchDrawActivity"
+                android:configChanges="orientation|screenSize" >
+            </activity>
+        </config-file>
+        <source-file src="src/android/Sketch.java"
+            target-dir="src/au/com/blinkmobile/cordova/sketch" />
+        <source-file src="src/android/TouchDrawActivity.java"
+            target-dir="src/au/com/blinkmobile/cordova/sketch" />
+    </platform>
+
 </plugin>
