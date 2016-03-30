@@ -183,8 +183,19 @@ typedef NSUInteger InputType;
                                 callbackId:self.callbackId];
 }
 
-#pragma mark -
-#pragma mark SaveDrawingProtocol
+- (void) dealloc
+{
+    if (self.touchDrawController) {
+        self.touchDrawController.delegate = nil;
+        self.touchDrawController = nil;
+    }
+
+    if (self.navigationController) {
+        self.navigationController = nil;
+    }
+}
+
+#pragma mark - SaveDrawingProtocol
 
 - (void) saveDrawing:(UIImage *)drawing
 {
@@ -241,21 +252,6 @@ typedef NSUInteger InputType;
     [self.navigationController popToRootViewControllerAnimated:NO];
     [self.navigationController dismissViewControllerAnimated:NO completion:nil];
     NSLog(@"Drawing cancelled");
-}
-
-
-#pragma mark -
-
-- (void) dealloc
-{
-    if (self.touchDrawController) {
-        self.touchDrawController.delegate = nil;
-        self.touchDrawController = nil;
-    }
-
-    if (self.navigationController) {
-        self.navigationController = nil;
-    }
 }
 
 @end
