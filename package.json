@@ -14,7 +14,7 @@
     "drawing",
     "signature",
     "ecosystem:cordova",
-    "cordova-windows",
+    "cordova-windows"
   ],
   "devDependencies": {
     "eslint": "^1.1",

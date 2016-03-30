@@ -17,15 +17,33 @@
         <js-module src="src/windows/sketchProxy.js" name="SketchProxy">
             <merges target="" />
         </js-module>
-        <asset src="www/css/cordova-plugin-sketch.css" target="cordova-plugin-sketch/css/cordova-plugin-sketch.css" />
+        <asset src="www/css/cordova-plugin-sketch.css"
+            target="cordova-plugin-sketch/css/cordova-plugin-sketch.css" />
         <asset src="www/css/program.css" target="cordova-plugin-sketch/css/program.css" />
         <asset src="www/images/Erase.cur" target="cordova-plugin-sketch/images/Erase.cur" />
         <asset src="www/images/Select.png" target="cordova-plugin-sketch/images/Select.png" />
         <asset src="www/canvasHtml.js" target="cordova-plugin-sketch/canvasHtml.js" />
-        <asset src="www/program.js" target="cordova-plugin-sketch/program.js" />    
+        <asset src="www/program.js" target="cordova-plugin-sketch/program.js" />
         <config-file target="package.appxmanifest" parent="/Package/Capabilities" versions=">=8.1.0">
             <Capability Name="picturesLibrary" />
         </config-file>
     </platform>
 
-    </plugin>
+    <!-- iOS -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="SketchPlugin">
+                <param name="ios-package" value="BGSketchPlugin"/>
+            </feature>
+        </config-file>
+        <header-file src="src/ios/BGSketchPlugin.h" />
+        <source-file src="src/ios/BGSketchPlugin.m" />
+        <header-file src="src/ios/TouchDraw/BGTouchDrawView.h" />
+        <source-file src="src/ios/TouchDraw/BGTouchDrawView.m" />
+        <header-file src="src/ios/TouchDraw/BGTouchDrawViewController.h" />
+        <source-file src="src/ios/TouchDraw/BGTouchDrawViewController.m" />
+        <header-file src="src/ios/TouchDraw/UIImage+ImageWithColor.h" />
+        <source-file src="src/ios/TouchDraw/UIImage+ImageWithColor.m" />
+    </platform>
+
+</plugin>
