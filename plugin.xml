@@ -60,6 +60,10 @@
                 android:configChanges="orientation|screenSize" >
             </activity>
         </config-file>
+        <!-- Required for saving generated sketches to the photo library -->
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
         <source-file src="src/android/Sketch.java"
             target-dir="src/au/com/blinkmobile/cordova/sketch" />
         <source-file src="src/android/TouchDrawActivity.java"
