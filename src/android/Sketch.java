@@ -1,13 +1,11 @@
 package au.com.blinkmobile.cordova.sketch;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Base64;
 
 import org.apache.cordova.CallbackContext;
@@ -15,14 +13,15 @@ import org.apache.cordova.CordovaArgs;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.LOG;
 import org.apache.cordova.PluginResult;
+import org.apache.cordova.PluginResult.Status;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import org.apache.cordova.PluginResult.Status;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 /**
@@ -141,8 +140,62 @@ public class Sketch extends CordovaPlugin {
                     touchDrawIntent.putExtra(TouchDrawActivity.BACKGROUND_IMAGE_TYPE,
                             TouchDrawActivity.BackgroundImageType.DATA_URL.ordinal());
                 } else if (Sketch.this.inputType == InputType.FILE_URI) {
-                    touchDrawIntent.putExtra(TouchDrawActivity.BACKGROUND_IMAGE_TYPE,
-                            TouchDrawActivity.BackgroundImageType.FILE_URL.ordinal());
+                    Uri inputUri = Uri.parse(inputData);
+
+                    if (inputUri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+                        // Workaround for CB-9548 (https://issues.apache.org/jira/browse/CB-9548)
+                        //  The Cordova camera plugin can sometimes return a content URI instead of a file URI
+                        //  when the image is selected from the photo gallery.
+                        //
+                        //  However, the TouchDrawActivity can only accept a file URI or a data URI for the
+                        //  background image. So, we need to read the background image data and pass it in a
+                        //  format which can be handled by the TouchDrawActivity.
+
+                        InputStream inStream = null;
+                        try {
+                            // Write background image to a temporary file and pass it as a file URL because
+                            // there is no reliable way to get a file path from a content URI
+                            // (http://stackoverflow.com/a/19985374)
+                            ContentResolver contentResolver = Sketch.this.cordova.getActivity().getContentResolver();
+                            inStream = contentResolver.openInputStream(inputUri);
+
+                            if (inStream != null) {
+                                File file = new File(Sketch.this.cordova.getActivity().getCacheDir(), UUID.randomUUID().toString());
+                                FileOutputStream outStream = new FileOutputStream(file);
+                                byte[] data = new byte[1024];
+                                int bytesRead;
+
+                                while ((bytesRead = inStream.read(data, 0, data.length)) != -1) {
+                                    outStream.write(data, 0, bytesRead);
+                                }
+                                outStream.flush();
+                                outStream.close();
+
+                                Sketch.this.inputData = "file://" + file.getAbsolutePath();
+                                touchDrawIntent.putExtra(TouchDrawActivity.BACKGROUND_IMAGE_TYPE,
+                                        TouchDrawActivity.BackgroundImageType.FILE_URL.ordinal());
+                            }
+                        } catch (IOException e) {
+                            String message = "Failed to read image data from " + inputUri;
+                            LOG.e(TAG, message);
+                            e.printStackTrace();
+
+                            Sketch.this.callbackContext.error(message + ": " + e.getLocalizedMessage());
+                            return;
+                        } finally {
+                            if (inStream != null) {
+                                try {
+                                    inStream.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                    } else if (inputUri.getScheme().equals(ContentResolver.SCHEME_FILE)) {
+                        touchDrawIntent.putExtra(TouchDrawActivity.BACKGROUND_IMAGE_TYPE,
+                                TouchDrawActivity.BackgroundImageType.FILE_URL.ordinal());
+                    }
                 }
 
                 if (Sketch.this.encodingType == EncodingType.PNG) {
